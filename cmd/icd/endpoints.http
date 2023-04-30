@@ -1,0 +1,53 @@
+### 
+# Base URL
+@baseUrl = http://localhost:3000
+
+### 
+# Welcome Home Page
+GET {{baseUrl}} HTTP/1.1
+Content-Type: application/json
+ 
+ 
+
+###  
+# ICD Get record endpoint
+GET {{baseUrl}}/icd/A000  HTTP/1.1
+
+
+###  
+# ICD10 Create 
+POST {{baseUrl}}/icd HTTP/1.1
+Content-Type: application/json 
+
+{
+    "categoryCode": "A00000133",
+    "diagnosisCode": "2", 
+    "abbreviatedDescription": "sdds",
+    "fullDescription": "445sds4f",
+    "categoryTitle": "1245"
+}
+
+###  
+# ICD Edit 
+PUT {{baseUrl}}/icd/A000099999  HTTP/1.1
+Content-Type: application/json 
+
+{
+    "categoryCode": "A00008989edited3",
+    "diagnosisCode": "9", 
+    "abbreviatedDescription": "=====edited12sd",
+    "fullDescription": "edited-4fgdf",
+    "categoryTitle": "edited-12df" 
+}
+
+
+###  
+# ICD Delete record endpoint
+DELETE {{baseUrl}}/icd/A000099999  HTTP/1.1
+
+
+###  
+# ICD List
+GET {{baseUrl}}/icd/?limit=7&cursor=A0101  HTTP/1.1
+###
+GET {{baseUrl}}/icd/  HTTP/1.1
