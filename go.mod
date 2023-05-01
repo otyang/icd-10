@@ -8,6 +8,7 @@ require (
 	github.com/gookit/validate v1.4.6
 	github.com/ilyakaznacheev/cleanenv v1.4.2
 	github.com/leebenson/conform v1.2.2
+	github.com/stretchr/testify v1.8.1
 	github.com/uptrace/bun v1.1.12
 	github.com/uptrace/bun/dialect/pgdialect v1.1.12
 	github.com/uptrace/bun/dialect/sqlitedialect v1.1.12
@@ -17,7 +18,11 @@ require (
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 )
 
-require gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
+)
 
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect

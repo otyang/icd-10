@@ -57,7 +57,6 @@ func (h *Handler) Get(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Create(c *fiber.Ctx) error {
-
 	body, ok := middleware.ValidatedDataFromContext(c).(*entity.CreateICDRequest)
 	if !ok {
 		return response.InternalServerError("error from ur end, invalid context", nil)
@@ -121,10 +120,8 @@ func (h *Handler) Edit(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Delete(c *fiber.Ctx) error {
-
 	icdFullCode := c.Params("fullCode")
 	err := h.Repo.DeleteRecord(context.TODO(), icdFullCode)
-
 	if err != nil {
 		return response.InternalServerError(err.Error(), nil)
 	}
@@ -159,7 +156,6 @@ func (h *Handler) List(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Upload(c *fiber.Ctx) error {
-
 	// Get first file from form field "document":
 	file, err := c.FormFile("document")
 	if err != nil {

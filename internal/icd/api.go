@@ -40,7 +40,6 @@ func RegisterHttpHandlers(
 }
 
 func RegisterEventsHandlers(ctx context.Context, config *config.Config, log loggers.Interface) {
-
 	handler := handlerEvent.NewHandler(config, log)
 
 	event.Subscriber(

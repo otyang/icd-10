@@ -26,7 +26,6 @@ func NewHandler(config *config.Config, Log logger.Interface) *Handler {
 var m = gomail.NewMessage() // lets do it here so we can cache the initialisation
 
 func (h *Handler) EventHandlerFileUpload(e event.Event) error {
-
 	toEmail := e.Data()["0"].(string)
 
 	m.SetHeader("To", toEmail)
