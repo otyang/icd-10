@@ -14,10 +14,7 @@ func ValidateBody[BodyType any](c *fiber.Ctx) error {
 		return c.Status(rsp.StatusCode).JSON(rsp)
 	}
 
-	conform.Strings(body)
-
-	// err := validators.NewCheckerGoPlay(body)  // for goplaygroundlibrary
-	// msg := validators.TranslatorGoPlay(err)  // for goplaygroundlibrary
+	conform.Strings(body) // so we can trim the spaces and apply changes
 
 	err := validators.NewCheckerGoKit(body)
 	msg := validators.TranslatorGoKit(err)

@@ -27,8 +27,6 @@ func main() {
 
 	logger.WithBaseInfo(zlog, cfg.AppName, cfg.AppAddress)
 
-	// pubSub := datastore.NewNatsFromCredential(cfg.NatsURL, cfg.NatsCredentialFile, zlog)
-
 	defer cancel()
 	defer func() {
 		if err := db.Close(); err != nil {
@@ -42,7 +40,6 @@ func main() {
 			middleware.HttpLog(zlog),
 		)
 
-		// nats above http server, cause http blocking server.
 		icd.RegisterHttpHandlers(ctx, router, cfg, zlog, db)
 		icd.RegisterEventsHandlers(ctx, cfg, zlog)
 	}

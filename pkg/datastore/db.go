@@ -23,9 +23,6 @@ type (
 	OrmDbTx = bun.IDB
 )
 
-// disable ssl on localhost
-// dsn := "postgres://postgres:@localhost:5432/test?sslmode=disable"
-
 func NewDBConnection(dbDriver, dsn string, dbPoolMax int, printQueriesToStdout bool) OrmDB {
 	_dbh, err := sql.Open(dbDriver, dsn)
 	if err != nil {
