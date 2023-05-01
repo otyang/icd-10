@@ -5,7 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	eventDTOs "github.com/otyang/icd-10/internal/event"
+	"github.com/otyang/icd-10/internal/event"
 	"github.com/otyang/icd-10/internal/icd/entity"
 	handlerEvent "github.com/otyang/icd-10/internal/icd/handler_event"
 	handlerHttp "github.com/otyang/icd-10/internal/icd/handler_http"
@@ -15,8 +15,6 @@ import (
 	"github.com/otyang/icd-10/pkg/datastore"
 	loggers "github.com/otyang/icd-10/pkg/logger"
 	mw "github.com/otyang/icd-10/pkg/middleware"
-
-	"github.com/gookit/event"
 )
 
 func RegisterHttpHandlers(
@@ -45,8 +43,8 @@ func RegisterEventsHandlers(ctx context.Context, config *config.Config, log logg
 
 	handler := handlerEvent.NewHandler(config, log)
 
-	event.On(
-		eventDTOs.TopicFileUploadComplete,
+	event.Subscriber(
+		event.TopicFileUploadComplete,
 		event.ListenerFunc(handler.EventHandlerFileUpload),
 		event.Normal,
 	)

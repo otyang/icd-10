@@ -6,14 +6,13 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	//"github.com/gookit/event"
+	"github.com/otyang/icd-10/internal/event"
 	"github.com/otyang/icd-10/internal/icd/entity"
 	"github.com/otyang/icd-10/pkg/config"
 	"github.com/otyang/icd-10/pkg/logger"
 	"github.com/otyang/icd-10/pkg/middleware"
 	"github.com/otyang/icd-10/pkg/response"
-
-	"github.com/gookit/event"
-	eventDTOs "github.com/otyang/icd-10/internal/event"
 )
 
 type Handler struct {
@@ -31,6 +30,7 @@ func NewHandler(repo entity.IICDRepository, config *config.Config, Log logger.In
 }
 
 func (h *Handler) Welcome(c *fiber.Ctx) error {
+	go event.Publish(event.TopicFileUploadComplete, "user@email.com")
 
 	resp := response.Ok("", "Hello, welcome to the icd_10 page")
 	return c.
@@ -171,7 +171,7 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	}
 
 	// lets fire an event in a go-routine to notify email service
-	go event.Fire(eventDTOs.TopicFileUploadComplete, event.M{"aa": "y@y.com"})
+	go event.Publish(event.TopicFileUploadComplete, "user@email.com")
 
 	resp := response.Ok("", nil)
 	return c.Status(resp.StatusCode).JSON(resp)
