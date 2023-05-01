@@ -16,16 +16,51 @@ import (
 var tests = []struct {
 	reqMethod            string // method to use in sending requuest path
 	reqRoute             string // route path to test
-	reqBody              *string
+	reqBody              any
 	expectedResponseCode int    // expected HTTP status code
 	description          string // description of the test case
 }{
 	{
 		reqMethod:            "GET",
-		reqRoute:             "/icd/100",
+		reqRoute:             "/icd/A000",
 		reqBody:              nil,
 		description:          "Get ICD endpoint",
 		expectedResponseCode: http.StatusOK,
+	},
+	{
+		reqMethod:            "DELETE",
+		reqRoute:             "/icd/111199",
+		reqBody:              nil,
+		description:          "Delete ICD endpoint",
+		expectedResponseCode: http.StatusOK,
+	},
+	{
+		reqMethod:            "POST",
+		reqRoute:             "/icd",
+		reqBody:              nil,
+		description:          "Post ICD endpoint",
+		expectedResponseCode: http.StatusBadRequest,
+	},
+	{
+		reqMethod:            "PUT",
+		reqRoute:             "/icd/1111111111edited39",
+		reqBody:              nil,
+		description:          "Put ICD endpoint",
+		expectedResponseCode: http.StatusBadRequest,
+	},
+	{
+		reqMethod:            "GET",
+		reqRoute:             "/icd",
+		reqBody:              nil,
+		description:          "List ICD endpoint",
+		expectedResponseCode: http.StatusOK,
+	},
+	{
+		reqMethod:            "POST",
+		reqRoute:             "/icd-upload",
+		reqBody:              nil,
+		description:          "Upload ICD endpoint",
+		expectedResponseCode: http.StatusBadRequest,
 	},
 }
 

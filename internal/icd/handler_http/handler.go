@@ -159,7 +159,7 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	// Get first file from form field "document":
 	file, err := c.FormFile("document")
 	if err != nil {
-		return response.InternalServerError(err.Error(), nil)
+		return response.BadRequest(err.Error(), nil)
 	}
 
 	if !strings.HasSuffix(file.Filename, ".csv") {
