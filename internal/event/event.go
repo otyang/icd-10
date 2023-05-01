@@ -1,10 +1,10 @@
 package event
 
 const (
-	SubjectFileUpload = "file.upload"
+	TopicFileUploadComplete = "file.upload.complete"
 )
 
-type FileUpload struct {
+type FileUploadComplete struct {
 	Email   string
 	Message string
 }

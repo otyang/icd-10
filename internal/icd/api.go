@@ -46,7 +46,7 @@ func RegisterEventsHandlers(ctx context.Context, config *config.Config, log logg
 	handler := handlerEvent.NewHandler(config, log)
 
 	event.On(
-		eventDTOs.SubjectFileUpload,
+		eventDTOs.TopicFileUploadComplete,
 		event.ListenerFunc(handler.EventHandlerFileUpload),
 		event.Normal,
 	)

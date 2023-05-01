@@ -171,7 +171,7 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	}
 
 	// lets fire an event in a go-routine to notify email service
-	go event.Fire(eventDTOs.SubjectFileUpload, event.M{"aa": "y@y.com"})
+	go event.Fire(eventDTOs.TopicFileUploadComplete, event.M{"aa": "y@y.com"})
 
 	resp := response.Ok("", nil)
 	return c.Status(resp.StatusCode).JSON(resp)
