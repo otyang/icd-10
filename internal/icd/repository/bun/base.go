@@ -37,14 +37,16 @@ func (r *ICDRepository) CreateRecord(ctx context.Context, in entity.CreateICDReq
 	return &c, err
 }
 
-func (r *ICDRepository) UpdateRecord(ctx context.Context, fullCode string, in entity.ICD) (*entity.ICD, error) {
+func (r *ICDRepository) UpdateRecord(ctx context.Context, currentFullCode string, in entity.ICD) (*entity.ICD, error) {
 	in.UpdatedAt = time.Now()
-	err := r.db.
+
+	_, err := r.db.
 		NewUpdate().
 		Model(&in).
-		WherePK().
-		// Where("full_code = ?", fullCode).
-		Scan(ctx)
+		Set("full_code = ?", in.FullCode).
+		Where("full_code = ?", currentFullCode).
+		Exec(ctx)
+
 	return &in, err
 }
 

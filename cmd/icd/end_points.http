@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###  
 # ICD Get record endpoint
-GET {{baseUrl}}/icd/A000  HTTP/1.1
+GET {{baseUrl}}/icd/111112  HTTP/1.1
 
 
 ###  
@@ -20,7 +20,7 @@ POST {{baseUrl}}/icd HTTP/1.1
 Content-Type: application/json 
 
 {
-    "categoryCode": "A00000133",
+    "categoryCode": "11111",
     "diagnosisCode": "2", 
     "abbreviatedDescription": "sdds",
     "fullDescription": "445sds4f",
@@ -29,13 +29,13 @@ Content-Type: application/json
 
 ###  
 # ICD Edit 
-PUT {{baseUrl}}/icd/A000099999  HTTP/1.1
+PUT {{baseUrl}}/icd/1111111111edited39  HTTP/1.1
 Content-Type: application/json 
 
 {
-    "categoryCode": "A00008989edited3",
-    "diagnosisCode": "9", 
-    "abbreviatedDescription": "=====edited12sd",
+    "categoryCode": "1111",
+    "diagnosisCode": "99", 
+    "abbreviatedDescription": "1=====edited12sd",
     "fullDescription": "edited-4fgdf",
     "categoryTitle": "edited-12df" 
 }
@@ -48,6 +48,26 @@ DELETE {{baseUrl}}/icd/A000099999  HTTP/1.1
 
 ###  
 # ICD List
-GET {{baseUrl}}/icd/?limit=7&cursor=A0101  HTTP/1.1
+GET {{baseUrl}}/icd/?limit=1&cursor=A0101  HTTP/1.1
 ###
 GET {{baseUrl}}/icd/  HTTP/1.1
+
+
+
+
+### ---------------------------- UPLOAD FEED IMAGES ----------------------------
+POST {{baseUrl}}/icd-upload 
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="images"; filename="my_image.jpg"
+Content-Type: image/jpeg
+
+< /Users/anel-bou/Desktop/my_image.jpg
+--boundary
+Content-Disposition: form-data; name="images"; filename="my_image.jpg"
+Content-Type: image/jpeg
+
+< /Users/anel-bou/Desktop/my_image.jpg
+--boundary--
+### -------------------------------------------------------------------------

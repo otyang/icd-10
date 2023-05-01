@@ -57,12 +57,14 @@ func (h *Handler) Get(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Create(c *fiber.Ctx) error {
+
 	body, ok := middleware.ValidatedDataFromContext(c).(*entity.CreateICDRequest)
 	if !ok {
 		return response.InternalServerError("error from ur end, invalid context", nil)
 	}
 
 	_, err := h.Repo.GetRecord(context.TODO(), body.GetFullCode())
+
 	if err != nil && !entity.IsErrNotFound(err) {
 		return response.InternalServerError(err.Error(), nil)
 	}
@@ -100,11 +102,14 @@ func (h *Handler) Edit(c *fiber.Ctx) error {
 		return response.InternalServerError(err.Error(), nil)
 	}
 
-	result.AbbreviatedDescription = body.AbbreviatedDescription
+	//----  Lets update results
+	result.FullCode = body.GetFullCode()
 	result.CategoryCode = body.CategoryCode
-	result.CategoryTitle = body.CategoryTitle
 	result.DiagnosisCode = body.DiagnosisCode
+	result.CategoryTitle = body.CategoryTitle
 	result.FullDescription = body.FullDescription
+	result.AbbreviatedDescription = body.AbbreviatedDescription
+	//---
 
 	res, err := h.Repo.UpdateRecord(context.TODO(), icdFullCode, *result)
 	if err != nil {
