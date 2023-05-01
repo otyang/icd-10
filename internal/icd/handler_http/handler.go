@@ -11,6 +11,9 @@ import (
 	"github.com/otyang/icd-10/pkg/logger"
 	"github.com/otyang/icd-10/pkg/middleware"
 	"github.com/otyang/icd-10/pkg/response"
+
+	"github.com/gookit/event"
+	eventDTOs "github.com/otyang/icd-10/internal/event"
 )
 
 type Handler struct {
@@ -28,6 +31,7 @@ func NewHandler(repo entity.IICDRepository, config *config.Config, Log logger.In
 }
 
 func (h *Handler) Welcome(c *fiber.Ctx) error {
+
 	resp := response.Ok("", "Hello, welcome to the icd_10 page")
 	return c.
 		Status(resp.StatusCode).
@@ -161,12 +165,13 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 		return response.BadRequest("only csv files are allowed", nil)
 	}
 	// Save file to root directory:
-	err = c.SaveFile(file, fmt.Sprintf("%s/%s", h.Config.FileUploadDirectory, file.Filename))
+	err = c.SaveFile(file, fmt.Sprintf("%s/%s", h.Config.File.UploadDirectory, file.Filename))
 	if err != nil {
 		return response.BadRequest("error uploading file: "+err.Error(), nil)
 	}
 
-	// notify via email alert
+	// lets fire an event in a go-routine to notify email service
+	go event.Fire(eventDTOs.SubjectFileUpload, event.M{"aa": "y@y.com"})
 
 	resp := response.Ok("", nil)
 	return c.Status(resp.StatusCode).JSON(resp)

@@ -22,7 +22,7 @@ func main() {
 		router      = fiber.New(fiber.Config{})
 		ctx, cancel = context.WithCancel(context.Background())
 		zlog        = logger.NewSlogLogger("debug", "json", os.Stdout)
-		db          = datastore.NewDBConnection(cfg.DBDriver, cfg.DBURL, cfg.DBPoolMax, cfg.DBPrintQueriesToStdout)
+		db          = datastore.NewDBConnection(cfg.Database.Driver, cfg.Database.URL, cfg.Database.PoolMax, cfg.Database.PrintQueriesToStdout)
 	)
 
 	logger.WithBaseInfo(zlog, cfg.AppName, cfg.AppAddress)
@@ -44,7 +44,7 @@ func main() {
 
 		// nats above http server, cause http blocking server.
 		icd.RegisterHttpHandlers(ctx, router, cfg, zlog, db)
-		// icd10.RegisterEventsHandlers(ctx, pubSub, cfg, zlog, db)
+		icd.RegisterEventsHandlers(ctx, cfg, zlog)
 	}
 
 	if err := router.Listen(cfg.AppAddress); err != nil {
@@ -52,10 +52,10 @@ func main() {
 	}
 }
 
-func createFolderForUpload(dir string, log logger.Interface) error {
-	err := os.Mkdir(dir, 0755)
-	if err != nil {
-		log.Fatal("upload directory creation error" + err.Error())
-	}
-	return nil
-}
+// func createFolderForUpload(dir string, log logger.Interface) error {
+// 	err := os.Mkdir(dir, 0755)
+// 	if err != nil {
+// 		log.Fatal("upload directory creation error" + err.Error())
+// 	}
+// 	return nil
+// }

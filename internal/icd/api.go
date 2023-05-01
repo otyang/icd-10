@@ -5,7 +5,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	entity "github.com/otyang/icd-10/internal/icd/entity"
+	eventDTOs "github.com/otyang/icd-10/internal/event"
+	"github.com/otyang/icd-10/internal/icd/entity"
+	handlerEvent "github.com/otyang/icd-10/internal/icd/handler_event"
 	handlerHttp "github.com/otyang/icd-10/internal/icd/handler_http"
 	"github.com/otyang/icd-10/internal/icd/repository/bun"
 
@@ -13,6 +15,8 @@ import (
 	"github.com/otyang/icd-10/pkg/datastore"
 	loggers "github.com/otyang/icd-10/pkg/logger"
 	mw "github.com/otyang/icd-10/pkg/middleware"
+
+	"github.com/gookit/event"
 )
 
 func RegisterHttpHandlers(
@@ -37,33 +41,13 @@ func RegisterHttpHandlers(
 	}
 }
 
-// func RegisterEventsHandlers(
-// 	ctx context.Context,
-// 	pubSub *datastore.PubSub,
-// 	config *config.Config,
-// 	log loggers.Interface,
-// 	db datastore.OrmDB,
-// ) {
-// 	var (
-// 		repo    = bun.NewICDRepository(db)
-// 		handler = handlerNats.NewHandler(repo, config, log)
-// 	)
+func RegisterEventsHandlers(ctx context.Context, config *config.Config, log loggers.Interface) {
 
-// 	{
-// 		pubSub.Subscribe(context.TODO(), event.SubjectStockUpdates, handler.SubscribeStocks)
-// 		pubSub.Subscribe(context.TODO(), event.SubjectSMSRecieve, handler.SubscribeSMSRecieve)
+	handler := handlerEvent.NewHandler(config, log)
 
-// 		_ = pubSub.Publish(context.TODO(), event.SubjectSMSRecieve, &event.Stock{
-// 			Symbol: "GOOG",
-// 			Price:  200,
-// 		})
-
-// 		err := pubSub.Publish(context.TODO(), event.SubjectStockUpdates, &event.SMSRecieve{
-// 			From:    "+9999999999",
-// 			Message: "Hello World!",
-// 		})
-// 		if err != nil {
-// 			fmt.Println(err.Error())
-// 		}
-// 	}
-// }
+	event.On(
+		eventDTOs.SubjectFileUpload,
+		event.ListenerFunc(handler.EventHandlerFileUpload),
+		event.Normal,
+	)
+}

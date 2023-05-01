@@ -7,16 +7,28 @@ import (
 )
 
 type Config struct {
-	AppName                string `env:"APP_NAME" env-default:"mPharma-icd10"`
-	AppAddress             string `env:"APP_ADDRESS" env-default:"0.0.0.0:3000"`
-	AppLogLevel            string `env:"APP_LOG_LEVEL" env-default:"debug"`
-	FileUploadDirectory    string `env:"FILE_UPLOAD_DIR" env-default:"uploads"`
-	DBPoolMax              int    `env:"DB_POOL_MAX"  env-default:"1"`
-	DBURL                  string `env:"DB_URL" env-default:"../../icd_10_db"`
-	DBDriver               string `env:"DB_DRIVER" env-default:"sqliteshim"`
-	DBPrintQueriesToStdout bool   `env:"DB_PRINT_TO_STDOUT"  env-default:"true"`
-	NatsURL                string `env:"NATS_URL"  env-default:"tls://connect.ngs.global"`
-	NatsCredentialFile     string `env:"NATS_URL"  env-default:"/Users/admin/desktop/yasante/cmd/zample/cred_nats.txt"`
+	AppName     string `env:"APP_NAME" env-default:"mPharma-icd10"`
+	AppAddress  string `env:"APP_ADDRESS" env-default:"0.0.0.0:3000"`
+	AppLogLevel string `env:"APP_LOG_LEVEL" env-default:"debug"`
+
+	SMTP struct {
+		Email     string `env:"SMTP_EMAIL" env-default:"admin@admin.com"`
+		Server    string `env:"SMTP_SERVER" env-default:"smtp.google.com"`
+		Port      int    `env:"SMTP_PORT" env-default:"587"`
+		Password  string `env:"SMTP_PASSWORD" env-default:"PP"`
+		EnableTLS bool   `env:"SMTP_TLS_ENABLED" env-default:"false"`
+	}
+
+	File struct {
+		UploadDirectory string `env:"FILE_UPLOAD_DIR" env-default:"uploads"`
+	}
+
+	Database struct {
+		PoolMax              int    `env:"DB_POOL_MAX"  env-default:"1"`
+		URL                  string `env:"DB_URL" env-default:"../../icd_10_db"`
+		Driver               string `env:"DB_DRIVER" env-default:"sqliteshim"`
+		PrintQueriesToStdout bool   `env:"DB_PRINT_TO_STDOUT"  env-default:"true"`
+	}
 }
 
 // Loads config file, overwrite/parses with env variables
