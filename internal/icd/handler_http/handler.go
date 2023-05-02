@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	//"github.com/gookit/event"
 	"github.com/otyang/icd-10/internal/event"
 	"github.com/otyang/icd-10/internal/icd/entity"
 	"github.com/otyang/icd-10/pkg/config"
