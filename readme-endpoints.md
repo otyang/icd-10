@@ -255,7 +255,8 @@ demo@github.com
 Content-Disposition: form-data; name="csv-file"; filename="1.csv"
 Content-Type: text/csv
 
-< ./1.csv
+A00,0,A000,"Cholera due to Vibrio cholerae 01, biovar cholerae","Cholera due to Vibrio cholerae 01, biovar cholerae","Cholera"
+A00,1,A001,"Cholera due to Vibrio cholerae 01, biovar eltor","Cholera due to Vibrio cholerae 01, biovar eltor","Cholera"
 ------theDelimiter--'
 ```
 

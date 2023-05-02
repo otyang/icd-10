@@ -175,7 +175,7 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	}
 
 	// Save file to root directory:
-	err = c.SaveFile(file, "pop"+file.Filename)
+	err = c.SaveFile(file, fmt.Sprintf("%s/%s", h.Config.File.UploadDirectory, file.Filename))
 	if err != nil {
 		return response.BadRequest("error file upload: "+err.Error(), nil)
 	}
