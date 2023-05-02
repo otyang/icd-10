@@ -66,7 +66,7 @@ Conventional HTTP response codes are used to indicate the success or failure of 
  
 
 
-## Project Layout 
+## Project Layout, Architectural Considerations & Tech stack 
 
 The code uses the following project layout:
  
@@ -97,13 +97,12 @@ the `icd` directory contains the application logic related with the icd-10 featu
 Within each feature package, code are organized in layers (API, entity, repository, handlers-for-http, handlers-for-events), following the dependency guidelines
 as described in the [clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-
-
-## Tech Stack
  
 * **[Golang](https://go.dev/)** - An open-source programming language supported by Google. 
 * **[Sqlite Database](https://sqlite.org/)** - This is a small, fast, self-contained, high-reliability, portable and most-used, SQL database engine. I selected this to reduce dependencies and for portability.
 
+## Acknowledgment
+[@kamillamagna](https://github.com/kamillamagna) - His csv file on the icd10 codes, was what i converted and loaded into a sqlite database.
 
 ## Authors
 
