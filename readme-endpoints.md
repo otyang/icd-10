@@ -229,3 +229,48 @@ Connection: close
 }
 ```
 
+
+##  Uploading ICD CSV files with diagnosis code records
+ 
+### Request
+POST /icd-upload
+
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `email | `string` | **Required**. email of the user for notification purpose when sending is completed |
+| `csv-file | `file` | **Required**. the csv file to upload |
+
+
+```
+curl --request POST \
+  --url http://localhost:3000/icd-upload \
+  --header 'content-type: multipart/form-data; boundary=----theDelimiter' \
+  --header 'x-notification-email: demo@github.com' \
+  --data '------theDelimiter
+Content-Disposition: form-data; name="email"
+
+demo@github.com
+------theDelimiter
+Content-Disposition: form-data; name="csv-file"; filename="1.csv"
+Content-Type: text/csv
+
+< ./1.csv
+------theDelimiter--'
+```
+
+### Response
+```
+HTTP/1.1 200 OK
+Date: Tue, 02 May 2023 08:29:57 GMT
+Content-Type: application/json
+Content-Length: 50
+Vary: Origin
+Access-Control-Allow-Origin: *
+Connection: close
+
+{
+  "success": true,
+  "message": "Request was succesful"
+}
+```

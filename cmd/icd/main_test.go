@@ -2,12 +2,18 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"flag"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/otyang/icd-10/internal/icd"
+	"github.com/otyang/icd-10/pkg/config"
+	"github.com/otyang/icd-10/pkg/datastore"
 	"github.com/otyang/icd-10/pkg/logger"
 	"github.com/otyang/icd-10/pkg/middleware"
 	"github.com/stretchr/testify/assert"
@@ -65,6 +71,23 @@ var tests = []struct {
 }
 
 func Test_main(t *testing.T) {
+	var (
+		configFile = flag.String("configFile", ".example.env", "full path to config file")
+
+		cfg = func() *config.Config {
+			flag.Parse()
+			c := &config.Config{}
+			config.Load(*configFile, c)
+			return c
+		}()
+	)
+
+	var (
+		router      = fiber.New(fiber.Config{})
+		ctx, cancel = context.WithCancel(context.Background())
+		zlog        = logger.NewSlogLogger("debug", "json", os.Stdout)
+		db          = datastore.NewDBConnection(cfg.Database.Driver, cfg.Database.URL, cfg.Database.PoolMax, cfg.Database.PrintQueriesToStdout)
+	)
 
 	logger.WithBaseInfo(zlog, cfg.AppName, cfg.AppAddress)
 

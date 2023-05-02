@@ -57,12 +57,17 @@ DELETE {{baseUrl}}/icd/A000001  HTTP/1.1
 ###   Uploading ICD CSV files with  diagnosis code records  
 POST {{baseUrl}}/icd-upload 
 X-Notification-Email: demo@github.com
-Content-Type: multipart/form-data; boundary=boundary
+Content-Type: multipart/form-data; boundary=----theDelimiter
 
---boundary
-Content-Disposition: form-data; name="records"; filename="my_image.csv"
+------theDelimiter
+Content-Disposition: form-data; name="email"
+
+demo@github.com
+------theDelimiter
+Content-Disposition: form-data; name="csv"; filename="1.csv"
 Content-Type: text/csv
 
-< /path/to/file.csv
---boundary-- 
+< ./1.csv
+------theDelimiter--
+ 
 

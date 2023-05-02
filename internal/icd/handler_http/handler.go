@@ -29,6 +29,7 @@ func NewHandler(repo entity.IICDRepository, config *config.Config, Log logger.In
 }
 
 func (h *Handler) Welcome(c *fiber.Ctx) error {
+
 	go event.Publish(event.TopicFileUploadComplete, "user@email.com")
 
 	resp := response.Ok("", "Hello, welcome to the icd_10 page")
@@ -156,13 +157,15 @@ func (h *Handler) List(c *fiber.Ctx) error {
 
 func (h *Handler) Upload(c *fiber.Ctx) error {
 
-	email := c.Get("X-Notification-Email", "")
+	email := c.FormValue("email")
 	if !entity.IsValidEmail(email) {
-		return response.BadRequest("invalid notification email at header", nil)
+		return response.BadRequest("invalid notification email ", nil)
 	}
 
+	fmt.Println(email)
+
 	// Get first file from form field "document":
-	file, err := c.FormFile("document")
+	file, err := c.FormFile("csv")
 	if err != nil {
 		return response.BadRequest(err.Error(), nil)
 	}
@@ -170,14 +173,15 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	if !strings.HasSuffix(file.Filename, ".csv") {
 		return response.BadRequest("only csv files are allowed", nil)
 	}
+
 	// Save file to root directory:
-	err = c.SaveFile(file, fmt.Sprintf("%s/%s", h.Config.File.UploadDirectory, file.Filename))
+	err = c.SaveFile(file, "pop"+file.Filename)
 	if err != nil {
-		return response.BadRequest("error uploading file: "+err.Error(), nil)
+		return response.BadRequest("error file upload: "+err.Error(), nil)
 	}
 
 	// lets fire an event in a go-routine to notify email service
-	go event.Publish(event.TopicFileUploadComplete, "user@email.com")
+	go event.Publish(event.TopicFileUploadComplete, email)
 
 	resp := response.Ok("", nil)
 	return c.Status(resp.StatusCode).JSON(resp)
