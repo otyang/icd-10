@@ -65,6 +65,7 @@ var tests = []struct {
 }
 
 func Test_main(t *testing.T) {
+
 	logger.WithBaseInfo(zlog, cfg.AppName, cfg.AppAddress)
 
 	defer cancel()
