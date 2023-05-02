@@ -101,6 +101,23 @@ as described in the [clean architecture](https://blog.cleancoder.com/uncle-bob/2
 * **[Golang](https://go.dev/)** - An open-source programming language supported by Google. 
 * **[Sqlite Database](https://sqlite.org/)** - This is a small, fast, self-contained, high-reliability, portable and most-used, SQL database engine. I selected this to reduce dependencies and for portability.
 
+
+
+
+## Screenshots
+
+Over of 71,000+ records loaded into the database. 
+
+- I added a created and updated at time
+- Since csv has no primary keys, i formatted the full_code to represent the primary keys. as it is the column with unique values. Its made up by combining the category_code and diagnosis_code
+
+![Screenshot of the Database](https://raw.githubusercontent.com/otyang/pimgz/main/screenshot.png)
+ 
+
+## Extras
+
+If you can a vscode-code editor, you can make use of the 'cmd/icd/end_points.http' file to make request and see their response.
+
 ## Acknowledgment
 [@k4m1113](https://github.com/k4m1113) - His csv [file](https://github.com/k4m1113/ICD-10-CSV) on the icd10 codes, was what i converted and loaded into a sqlite database.
 

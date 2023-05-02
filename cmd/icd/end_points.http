@@ -16,7 +16,7 @@ GET {{baseUrl}}/icd/A000  HTTP/1.1
 
 ###  
 # List diagnosis codes in batches of 20 by default
-GET {{baseUrl}}/icd?limit=20&cursor=  HTTP/1.1 
+GET {{baseUrl}}/icd?limit=2&cursor=  HTTP/1.1 
 
 
 ###  
@@ -25,16 +25,17 @@ POST {{baseUrl}}/icd HTTP/1.1
 Content-Type: application/json 
 
 {
-  "categoryCode": "A00000",
+  "categoryCode": "A00000000B",
   "diagnosisCode": "1",
   "abbreviatedDescription": "New diseases sars",
   "fullDescription": "sars disease, airbone",
   "categoryTitle": "airborne"
 }
 
+
 ###  
 # Edit an existing diagnosis code record 
-PUT {{baseUrl}}/icd/A000001  HTTP/1.1
+PUT {{baseUrl}}/icd/A00000000B1 HTTP/1.1
 Content-Type: application/json 
 
 {
@@ -45,12 +46,14 @@ Content-Type: application/json
   "categoryTitle": "Edited - airborne"
 }
 
+ 
 
 ###  
 # Delete a diagnosis code by ID
 DELETE {{baseUrl}}/icd/A000001  HTTP/1.1
 
  
+
 ###   Uploading ICD CSV files with  diagnosis code records  
 POST {{baseUrl}}/icd-upload 
 X-Notification-Email: demo@github.com
