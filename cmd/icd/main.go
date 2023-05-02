@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,10 +14,12 @@ import (
 )
 
 var (
-	configFile = ""
-	cfg        = func() *config.Config {
+	configFile = flag.String("configFile", ".example.env", "full path to config file")
+
+	cfg = func() *config.Config {
+		flag.Parse()
 		c := &config.Config{}
-		config.Load(configFile, c)
+		config.Load(*configFile, c)
 		return c
 	}()
 )
@@ -52,11 +55,3 @@ func main() {
 		zlog.Fatal("Error starting server: " + err.Error())
 	}
 }
-
-// func createFolderForUpload(dir string, log logger.Interface) error {
-// 	err := os.Mkdir(dir, 0755)
-// 	if err != nil {
-// 		log.Fatal("upload directory creation error" + err.Error())
-// 	}
-// 	return nil
-// }
