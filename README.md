@@ -63,12 +63,12 @@ Conventional HTTP response codes are used to indicate the success or failure of 
 
 
 
- 
+Please refer to this link for full documentation
 
 
 ## Project Layout, Architectural Considerations & Tech stack 
 
-The code uses the following project layout:
+The code uses the following project layout: https://github.com/otyang/icd-10/blob/main/readme-endpoints.md
  
 ```
 .
@@ -102,7 +102,7 @@ as described in the [clean architecture](https://blog.cleancoder.com/uncle-bob/2
 * **[Sqlite Database](https://sqlite.org/)** - This is a small, fast, self-contained, high-reliability, portable and most-used, SQL database engine. I selected this to reduce dependencies and for portability.
 
 ## Acknowledgment
-[@kamillamagna](https://github.com/kamillamagna) - His csv file on the icd10 codes, was what i converted and loaded into a sqlite database.
+[@k4m1113](https://github.com/k4m1113) - His csv [file](https://github.com/k4m1113/ICD-10-CSV) on the icd10 codes, was what i converted and loaded into a sqlite database.
 
 ## Authors
 
