@@ -40,10 +40,13 @@ func (h *Handler) EventHandlerFileUpload(e event.Event) error {
 
 	// Now send E-Mail
 	if err := d.DialAndSend(m); err != nil {
-		fmt.Println(err)
+		fmt.Println(err.Error())
 	}
 
-	fmt.Println(toEmail)
+	fmt.Println(`Hello,  
+	Your file upload was succesfull. 
+	Thanks
+	Admin`)
 
 	return nil
 }

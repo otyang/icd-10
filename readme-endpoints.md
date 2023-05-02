@@ -238,7 +238,7 @@ POST /icd-upload
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
-| `email | `string` | **Required**. email of the user for notification purpose when sending is completed |
+| `email | `string` | **Required**. email of the uploader. This is for notification purpose when upload is completed |
 | `csv-file | `file` | **Required**. the csv file to upload |
 
 
@@ -246,11 +246,10 @@ POST /icd-upload
 curl --request POST \
   --url http://localhost:3000/icd-upload \
   --header 'content-type: multipart/form-data; boundary=----theDelimiter' \
-  --header 'x-notification-email: demo@github.com' \
   --data '------theDelimiter
 Content-Disposition: form-data; name="email"
 
-demo@github.com
+email-address-of-uploader@domain.com
 ------theDelimiter
 Content-Disposition: form-data; name="csv-file"; filename="1.csv"
 Content-Type: text/csv

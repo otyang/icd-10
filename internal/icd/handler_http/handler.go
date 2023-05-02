@@ -29,7 +29,6 @@ func NewHandler(repo entity.IICDRepository, config *config.Config, Log logger.In
 }
 
 func (h *Handler) Welcome(c *fiber.Ctx) error {
-
 	resp := response.Ok("", "Hello, welcome to the icd_10 page")
 	return c.
 		Status(resp.StatusCode).
@@ -154,7 +153,6 @@ func (h *Handler) List(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Upload(c *fiber.Ctx) error {
-
 	email := c.FormValue("email")
 	if !entity.IsValidEmail(email) {
 		return response.BadRequest("invalid notification email ", nil)
