@@ -63,7 +63,7 @@ Conventional HTTP response codes are used to indicate the success or failure of 
 
 
 
-Please refer to this link for full documentation
+Please refer to this link for full documentation: [https://github.com/otyang/icd-10/blob/main/readme-endpoints.md](https://github.com/otyang/icd-10/blob/main/readme-endpoints.md)
 
 
 ## Project Layout, Architectural Considerations & Tech stack 
