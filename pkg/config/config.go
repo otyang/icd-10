@@ -25,7 +25,7 @@ type Config struct {
 
 	Database struct {
 		PoolMax              int    `env:"DB_POOL_MAX"  env-default:"1"`
-		URL                  string `env:"DB_URL" env-default:"../../icd_db"`
+		URL                  string `env:"DB_URL" env-default:"./icd_codes_db.sqlite"`
 		Driver               string `env:"DB_DRIVER" env-default:"sqliteshim"`
 		PrintQueriesToStdout bool   `env:"DB_PRINT_TO_STDOUT"  env-default:"true"`
 	}

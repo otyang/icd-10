@@ -1,9 +1,19 @@
 FROM golang:alpine as build-stage
 WORKDIR /build
 COPY . .  
-RUN go mod download  
-#RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 build  -o ma ./cmd/icd
+RUN go mod download
 WORKDIR /build/cmd/icd/
-RUN go build && ls
-EXPOSE 3000
-CMD ["./icd"]
+RUN go build
+
+
+ 
+##
+## Deploy the application binary into a lean image
+##
+FROM debian:buster-slim AS runner
+WORKDIR /app 
+# lets copy the database, config file, and icd binary
+COPY --from=build-stage /build/cmd/icd/icd_codes_db.sqlite  /build/cmd/icd/.example.env /build/cmd/icd/icd ./
+EXPOSE 3000 
+CMD ["./icd", "-configFile", "./.example.env"]
+ 
