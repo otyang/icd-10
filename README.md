@@ -116,6 +116,16 @@ Over of 71,000+ records loaded into the database.
 ![Screenshot of the Database](https://raw.githubusercontent.com/otyang/pimgz/main/screenshot.png)
  
 
+
+## Running Tests
+
+To run tests on the endpoint, run the following command
+
+```bash
+  go test -v
+```
+
+
 ## Extras
 
 If you can a vscode-code editor, you can make use of the 'cmd/icd/end_points.http' file to make request and see their response.
