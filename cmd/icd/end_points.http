@@ -11,12 +11,12 @@ Content-Type: application/json
 
 ###  
 # Retrieve diagnosis codes by ID
-GET {{baseUrl}}/icd/:fullcode  HTTP/1.1
+GET {{baseUrl}}/icd/A000  HTTP/1.1
 
 
 ###  
 # List diagnosis codes in batches of 20 by default
-GET {{baseUrl}}/icd?limit={limitPerPage}&cursor={fullcode}  HTTP/1.1 
+GET {{baseUrl}}/icd?limit=20&cursor=  HTTP/1.1 
 
 
 ###  
@@ -25,50 +25,41 @@ POST {{baseUrl}}/icd HTTP/1.1
 Content-Type: application/json 
 
 {
-    "categoryCode": "11111",
-    "diagnosisCode": "2", 
-    "abbreviatedDescription": "sdds",
-    "fullDescription": "445sds4f",
-    "categoryTitle": "1245"
+  "categoryCode": "A00000",
+  "diagnosisCode": "1",
+  "abbreviatedDescription": "New diseases sars",
+  "fullDescription": "sars disease, airbone",
+  "categoryTitle": "airborne"
 }
 
 ###  
 # Edit an existing diagnosis code record 
-PUT {{baseUrl}}/icd/{fullcode}  HTTP/1.1
+PUT {{baseUrl}}/icd/A000001  HTTP/1.1
 Content-Type: application/json 
 
 {
-    "categoryCode": "1111",
-    "diagnosisCode": "99", 
-    "abbreviatedDescription": "1=====edited12sd",
-    "fullDescription": "edited-4fgdf",
-    "categoryTitle": "edited-12df" 
+  "categoryCode": "A00000",
+  "diagnosisCode": "1",
+  "abbreviatedDescription": "Edited - New diseases sars",
+  "fullDescription": "Edited - sars disease, airbone",
+  "categoryTitle": "Edited - airborne"
 }
 
 
 ###  
 # Delete a diagnosis code by ID
-DELETE {{baseUrl}}/icd/{fullcode}  HTTP/1.1
+DELETE {{baseUrl}}/icd/A000001  HTTP/1.1
 
-
-
-
-
-
-### ---------------------------- UPLOAD FEED IMAGES ----------------------------
+ 
+###   Uploading ICD CSV files with  diagnosis code records  
 POST {{baseUrl}}/icd-upload 
+X-Notification-Email: demo@github.com
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="images"; filename="my_image.csv"
-Content-Type: image/jpeg
+Content-Disposition: form-data; name="records"; filename="my_image.csv"
+Content-Type: text/csv
 
-< /Users/anel-bou/Desktop/my_image.jpg
---boundary
-Content-Disposition: form-data; name="images"; filename="my_image.csv"
-Content-Type: image/jpeg
-
-< /Users/anel-bou/Desktop/my_image.jpg
---boundary--
-### -------------------------------------------------------------------------
+< /path/to/file.csv
+--boundary-- 
 

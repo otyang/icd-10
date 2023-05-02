@@ -1,5 +1,7 @@
 package entity
 
+import "net/mail"
+
 // CreateICDRequest handles the create ICD  request body
 type CreateICDRequest struct {
 	// CategoryCode always at least a 3lettered and above code
@@ -46,4 +48,9 @@ func (req EditICDRequest) GetFullCode() string {
 		return req.CategoryCode + *req.DiagnosisCode
 	}
 	return req.CategoryCode
+}
+
+func IsValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	return err == nil
 }

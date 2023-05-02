@@ -14,6 +14,6 @@ type ICD struct {
 	AbbreviatedDescription string    `json:"abbreviatedDeScription"`
 	FullDescription        string    `json:"fullDecription"`
 	CategoryTitle          string    `json:"categoryTitle"`
-	CreatedAt              time.Time `json:"createdAt" bun:"-"`
-	UpdatedAt              time.Time `json:"updatedAt" bun:"-"`
+	CreatedAt              time.Time `json:"createdAt"`
+	UpdatedAt              time.Time `json:"updatedAt"`
 }

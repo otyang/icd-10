@@ -155,6 +155,12 @@ func (h *Handler) List(c *fiber.Ctx) error {
 }
 
 func (h *Handler) Upload(c *fiber.Ctx) error {
+
+	email := c.Get("X-Notification-Email", "")
+	if !entity.IsValidEmail(email) {
+		return response.BadRequest("invalid notification email at header", nil)
+	}
+
 	// Get first file from form field "document":
 	file, err := c.FormFile("document")
 	if err != nil {
