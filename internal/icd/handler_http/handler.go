@@ -30,8 +30,6 @@ func NewHandler(repo entity.IICDRepository, config *config.Config, Log logger.In
 
 func (h *Handler) Welcome(c *fiber.Ctx) error {
 
-	go event.Publish(event.TopicFileUploadComplete, "user@email.com")
-
 	resp := response.Ok("", "Hello, welcome to the icd_10 page")
 	return c.
 		Status(resp.StatusCode).
@@ -161,8 +159,6 @@ func (h *Handler) Upload(c *fiber.Ctx) error {
 	if !entity.IsValidEmail(email) {
 		return response.BadRequest("invalid notification email ", nil)
 	}
-
-	fmt.Println(email)
 
 	// Get first file from form field "document":
 	file, err := c.FormFile("csv")

@@ -39,9 +39,9 @@ func (h *Handler) EventHandlerFileUpload(e event.Event) error {
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: h.Config.SMTP.EnableTLS} // In production  set to false. In development set to true
 
 	// Now send E-Mail
-	// if err := d.DialAndSend(m); err != nil {
-	// 	fmt.Println(err)
-	// }
+	if err := d.DialAndSend(m); err != nil {
+		fmt.Println(err)
+	}
 
 	fmt.Println(toEmail)
 
